@@ -1,25 +1,40 @@
-import React from 'react'
+import addProduct from "./../redux/actions/actionProduct"
+import { getArticles } from "./../services/ArticleService"
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
 
 export default function ListeProduct() {
 
-    const dispatch = useDispatch()
-    const listePokemons = useSelector(state=>state.listePokemons)
+    const listeProducts = useSelector(state=>state.listeProducts)
 
     useEffect(() =>{
-        getPokemons().then(res =>{
-            const data = res.data.results
-            data.map(e=>{
+        getArticles().then(res =>{
+            console.log(res.data)
+            res.data.map(p=>{
                 return(
-                    dispatch({
-                        type: "ADD-POKEMON",
-                        payload: e
-                    })
+                    addProduct(p)
                 )
             })
         })
     }, [])
 
     return (
-        <div>ListeProduct</div>
+        <div>
+
+            {
+                listeProducts.lenght !== 0 ?
+                listeProducts.map((e,i)=>{
+                    return(
+                        <div>
+                            <p>{e.title}</p>
+                            <img src={e.image}/>
+                            <p>{e.price}</p>
+                        </div>
+                    )
+                })
+                : <div></div>
+            }
+
+        </div>
     )
 }

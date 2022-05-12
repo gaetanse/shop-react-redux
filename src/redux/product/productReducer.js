@@ -1,17 +1,17 @@
 const INITIAL_STATE = {
-    listeArticles : []
+    listeProducts : []
 }
 
-function ArticleReducer (state = INITIAL_STATE, action) {
+function ProductReducer (state = INITIAL_STATE, action) {
     switch (action.type) {
-        case 'ADD-ARTICLE': {
+        case 'ADD-PRODUCT': {
             return{
                 ...state,
-                listeArticles: [...state.listeArticles, action.payload]
+                listeProducts: [...state.listeProducts, action.payload]
             }
         }
         default: return state
     }
 }
 
-export default ArticleReducer
+export default ProductReducer
