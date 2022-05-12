@@ -1,13 +1,9 @@
 import { useDispatch } from "react-redux"
 
-export default function ActionProduct() {
-
+export const AddProduct = (e) => {
     const dispatch = useDispatch()
-    
-    function addProduct(e){
-        dispatch({
-            type: "ADD-PRODUCT",
-            payload: e
-        })
-    }
+    dispatch({
+        type: "ADD-PRODUCT",
+        payload: e
+    })
 }

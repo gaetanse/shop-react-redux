@@ -1,9 +1,11 @@
-import addProduct from "./../redux/actions/actionProduct"
+import { AddProduct } from "./../redux/actions/ActionProduct"
 import { getArticles } from "./../services/ArticleService"
 import { useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useSelector,useDispatch } from "react-redux"
 
 export default function ListeProduct() {
+
+    const dispatch = useDispatch()
 
     const listeProducts = useSelector(state=>state.listeProducts)
 
@@ -12,7 +14,10 @@ export default function ListeProduct() {
             console.log(res.data)
             res.data.map(p=>{
                 return(
-                    addProduct(p)
+                    dispatch({
+                        type: "ADD-PRODUCT",
+                        payload: p
+                    })
                 )
             })
         })
