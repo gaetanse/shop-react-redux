@@ -3,6 +3,7 @@ import { getArticles } from "./../services/ArticleService"
 import { useEffect } from "react"
 import { useSelector,useDispatch } from "react-redux"
 import { Card,Row,Col } from "react-bootstrap"
+import { useNavigate } from  "react-router-dom"
 
 export default function ListeProduct() {
 
@@ -24,20 +25,36 @@ export default function ListeProduct() {
         })
     }, [])
 
+    const navigate = useNavigate()
+
+    function GoTodetail(e,element){
+        e.preventDefault()
+        navigate("/detail",{
+          state:{
+            image: element.image,
+            title: element.title,
+            price: element.price,
+            category: element.category,
+            description: element.description
+          }
+        })
+    }
+
     return (
         <div>
 
 <Row xs={1} md={4} className="g-2">
             {
                 listeProducts.lenght !== 0 ?
-                listeProducts.map((e,i)=>{
+                listeProducts.map((el,i)=>{
                     return(
-                        <Col>
-                        <Card style={{ width: 'auto', height: '300px',border: "solid 1px black" }}>
-                                  <Card.Img variant="top" src={e.image} style={{ width: 'auto', height: '150px',background: "#F7F7F7" }} />
-                            <Card.Body style={{color:"#E42F32"}}>
-                                <Card.Text><strong>{e.title}</strong></Card.Text>
-                                <Card.Text style={{fontSize: "12px"}}><strong>{e.price}</strong></Card.Text>
+                        <Col key={i} onClick={(e)=>GoTodetail(e,el)}>
+                        <Card style={{ width: 'auto', height: '375px',border: "solid 1px black" }}>
+                                  <Card.Img className="my-4" variant="top" src={el.image} style={{ width: '150px', height: '150px',background: "#F7F7F7",margin: "auto auto" }} />
+                            <Card.Body style={{color:"#E42F32",margin: "auto auto"}}>
+                                <Card.Text><strong>{el.title}</strong></Card.Text>
+                                <Card.Text style={{fontSize: "12px"}}><strong>{el.category}</strong></Card.Text>
+                                <Card.Text style={{fontSize: "12px"}}><strong>{el.price} $</strong></Card.Text>
                             </Card.Body>
                         </Card>
                         </Col>
